@@ -23,11 +23,11 @@ posts = [
 ]
 
 @app.route('/')
-@app.route('/home')
+@app.route('/home', methods=['GET','POST'])
 def home():
     regForm = RegistrationForm()
     loginForm = LoginForm()
-    return render_template('home.html', title='Welcome', regForm=regForm, loginForm=LoginForm)
+    return render_template('home.html', title='Welcome', regForm=regForm, loginForm=loginForm)
 
 @app.route('/feed')
 def feed():
