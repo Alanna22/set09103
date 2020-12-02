@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+
+<div class="tabs container">
+            <div class="profile-info">
+                <div class="row">
+                    <div class="col-4">
+                         <img class="rounded-circle account-img" src="{{ url_for('static', filename='profileImg/' + user.userImage) }}">
+                         
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <h3> {{ user.userFN }} </h3>
+                            &nbsp; &nbsp;
+                            <h3> {{ user.userSN }} </h3>
+                        </div>
+                        <div class="row">
+                            <p>{{ user.userFN }} has posted <strong>{{ posts.total }}</strong> times</p>
+                        </div>
+                    </div>
+                </div>
+            
+</div>
+</div>
+
+<br>
+<br>
+
+{% for post in posts.items %}
+			<article class="media contentSection">
+				<div class="media-body">
+					<div class="row postHeadings">
+						<div class="col-1">
+							<img class="rounded-circle article-img" src="{{ url_for('static', filename='profileImg/' + post.author.userImage) }}">
+						</div>
+						<div class="col">
+							<div class="postMetadata">
+								<a class="mr-2" href="{{ url_for('userPosts', userFN=post.author.userFN) }}">{{ post.author.userFN }}  {{ post.author.userSN }}</a>
+								<small class="text-muted timeDate">{{ post.date.strftime('%-H:%M')}}</small>
+								<small class="text-muted timeDate">{{ post.date.strftime('%d %b')}}</small>
+							</div>
+						</div>
+					</div>
+
+				
+					<div class="row">
+						<p class="postContent">{{ post.content }}</p>
+					</div>
+					<div class="row">
+						<img class="mediaFile" src="{{ url_for('static', filename='postMedia/' + post.media) }}">
+					</div> 
+					<div class="row commentsIcon float-right">
+						<a href="{{ url_for('post', post_id=post.id) }}"><i class="far fa-comments"></i></a>
+					</div>
+				</div>
+
+
+			</article>
+	
+		{% endfor %} 
+		<div class="text-center">
+		{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+			{% if page_num %}
+				{% if posts.page == page_num %}
+					<a class="btn btn-info postsBtnActive mb-4" href="{{ url_for('userPosts', userFN=user.userFN, page=page_num) }}">{{ page_num }}</a>
+				{% else %}
+					<a class="btn btn-outline-info postsBtn mb-4" href="{{ url_for('userPosts', userFN=user.userFN, page=page_num) }}">{{ page_num }}</a>
+				{% endif %}
+			{% else %}
+				...
+			{% endif %}
+		{% endfor %}
+        </div>
+    </div>
+        
+{% endblock content %}

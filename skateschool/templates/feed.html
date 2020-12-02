@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+
+
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-3">
+				<img class="rounded-circle account-img" src="{{ userImage }}">
+				<h3 class="text-center"> {{ current_user.userFN }} {{ current_user.userSN }} </h3>
+			</div>
+			<div class="col-9">
+				<div class="well well-sm well-new-post">
+					<form method="post" action="" enctype="multipart/form-data">
+						{{ postForm.hidden_tag() }}
+						
+
+						{% if postForm.content.errors %}
+							{{ postForm.content(class="form-control is-invalid", placeholder='What do you want to say?') }}
+								<div class="errorMsg">
+									{% for error in postForm.content.errors %}
+										<span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% else %}
+								{{ postForm.content(class="form-control", placeholder='What do you want to say?') }}
+							{% endif %}
+
+						<div class='row newPostBtn'>
+							<div class="col">
+								{{ postForm.media(class="form-control-file") }}
+								{% if postForm.media.errors %}
+									{% for error in postForm.media.errors %}
+										<span class="text-danger">{{ error }}</span></br>
+									{% endfor %}
+								{% endif %}
+							</div>
+							<div class="col">
+								{{ postForm.submit(class="forms_buttons-action float-right") }}
+							</div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+			</div>
+	
+		<br><br><br>
+
+		{% for post in posts.items %}
+			<article class="media contentSection">
+				<div class="media-body">
+					<div class="row postHeadings">
+						<div class="col-1">
+							<img class="rounded-circle article-img" src="{{ url_for('static', filename='profileImg/' + post.author.userImage) }}">
+						</div>
+						<div class="col">
+							<div class="postMetadata">
+								{% if post.author == current_user %}
+									<a class="mr-2" href="{{ url_for('profile') }}">{{ post.author.userFN }}  {{ post.author.userSN }}</a>
+								{% else %}
+									<a class="mr-2" href="{{ url_for('userPosts', userFN=post.author.userFN) }}">{{ post.author.userFN }}  {{ post.author.userSN }}</a>
+								{% endif %}
+								<small class="text-muted timeDate">{{ post.date.strftime('%-H:%M')}}</small>
+								<small class="text-muted timeDate">{{ post.date.strftime('%d %b')}}</small>
+							</div>
+						</div>
+					</div>
+
+				
+					<div class="row">
+						<p class="postContent">{{ post.content }}</p>
+					</div>
+					<div class="row">
+						{% if post.media != None %}
+							<video width="400" controls class="mediaFile">
+								<source  src="{{ url_for('static', filename='postVideo/' + post.media) }}"/> 
+							</video>
+						{% endif %}
+					</div> 
+					<div class="row commentsIcon float-right">
+						<a href="{{ url_for('post', post_id=post.id) }}"><i class="far fa-comments"></i></a>
+					</div>
+				</div>
+
+
+			</article>
+	
+		{% endfor %} 
+		<div class="text-center">
+		{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+			{% if page_num %}
+				{% if posts.page == page_num %}
+					<a class="btn btn-info postsBtnActive mb-4" href="{{ url_for('feed', page=page_num) }}">{{ page_num }}</a>
+				{% else %}
+					<a class="btn btn-outline-info postsBtn mb-4" href="{{ url_for('feed', page=page_num) }}">{{ page_num }}</a>
+				{% endif %}
+			{% else %}
+				...
+			{% endif %}
+		{% endfor %}
+		</div>
+
+
+
+	</div>
+
+{% endblock content %}
+
+<script>
+	const video = document.querySelector("video");
+if (window.matchMedia('(prefers-reduced-motion)').matches) {
+  video.removeAttribute("autoplay");
+  video.pause();
+}
+
+</script>
+
