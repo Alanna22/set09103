@@ -48,7 +48,11 @@
 						<p class="postContent">{{ post.content }}</p>
 					</div>
 					<div class="row">
-						<img class="mediaFile" src="{{ url_for('static', filename='postMedia/' + post.media) }}">
+						{% if post.media != None %}
+							<video width="400" controls class="mediaFile">
+								<source  src="{{ url_for('static', filename='postVideo/' + post.media) }}"/> 
+							</video>
+						{% endif %}
 					</div> 
 					<div class="row commentsIcon float-right">
 						<a href="{{ url_for('post', post_id=post.id) }}"><i class="far fa-comments"></i></a>

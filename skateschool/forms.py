@@ -40,7 +40,7 @@ class UpdateProfileForm(FlaskForm):
 
 class PostForm(FlaskForm):
     content = TextAreaField('Content', validators=[DataRequired()])
-    media = FileField('Video', validators=[FileAllowed(['mov', 'mp4'])])
+    media = FileField('Upload a short video', validators=[FileAllowed(['mov', 'mp4'])])
     submit = SubmitField('Post')
 
 class CommentForm(FlaskForm):

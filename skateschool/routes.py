@@ -45,12 +45,16 @@ def save_media(form_media):
 
 @app.route('/feed', methods=['GET','POST'])
 @login_required
-def feed():
+def feed():      
     postForm = PostForm()
     if postForm.validate_on_submit():
         if postForm.media.data != None:
             media_file=save_media(postForm.media.data)
             post = Posts(content=postForm.content.data, media=media_file, author=current_user)
+            db.session.add(post)
+            db.session.commit()
+            flash('Your post has been made!', 'success')
+            return redirect(url_for('feed'))
         else:
             post = Posts(content=postForm.content.data, media=postForm.media.data, author=current_user)
             db.session.add(post)

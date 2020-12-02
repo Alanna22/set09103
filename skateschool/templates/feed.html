@@ -31,6 +31,7 @@
 
 						<div class='row newPostBtn'>
 							<div class="col">
+								<strong>{{ postForm.media.label}}</strong>
 								{{ postForm.media(class="form-control-file") }}
 								{% if postForm.media.errors %}
 									{% for error in postForm.media.errors %}
