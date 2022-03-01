@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <img class="rounded-circle account-img" src="{{ userImage }}">
+	<h3 class="text-center"> {{ current_user.userFN }} {{ current_user.userSN }} </h3>
+
+    <div class="well well-sm well-new-post">
+        <form method="post" action="" enctype="multipart/form-data">
+            {{ postForm.hidden_tag() }}
+            <div class="row postHeadings">
+                <div class="col-1">
+                    <img class="rounded-circle article-img" src="{{ url_for('static', filename='profileImg/' + post.author.userImage) }}">
+                </div>
+                <div class="col">
+                    <div class="postMetadata">
+                        <a class="mr-2" href="#">{{ post.author.userFN }}  {{ post.author.userSN }}</a>
+                        <small class="text-muted timeDate">{{ post.date.strftime('%-H:%M')}}</small>
+                        <small class="text-muted timeDate">{{ post.date.strftime('%d %b')}}</small>
+                    </div>
+                </div>
+            </div>
+   
+
+            {% if postForm.content.errors %}
+                {{ postForm.content(class="form-control is-invalid", placeholder='What do you want to say?') }}
+                    <div class="errorMsg">
+                        {% for error in postForm.content.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ postForm.content(class="form-control", placeholder='What do you want to say?') }}
+                {% endif %}
+
+            <div class='row newPostBtn'>
+                <div class="col">
+                    {{ postForm.media(class="form-control-file") }}
+                    {% if postForm.media.errors %}
+                        {% for error in postForm.media.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="col">
+                    {{ postForm.submit(class="forms_buttons-action float-right") }}
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    </div>
+  
+               
+
+
+{% endblock content %}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<script src="https://kit.fontawesome.com/df24a4616e.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+																	                                  
+		{% if title %}
+			<title>Sk8Skl - {{ title }}</title>
+		{% else %}
+			<title>Sk8Skl</title>
+		{% endif %}
+	</head>
+
+    <body>
+        <header style="margin-bottom: -250px; z-index: -5;">
+            <video autoplay playsinline muted loop preload poster="">
+            <source src="{{ url_for('static', filename='postMedia/77565ce03ec1c26d.mp4') }}" />
+            
+            </video>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 285 80" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <mask id="mask" x="0" y="0" width="100%" height="100%">
+                <rect x="0" y="0" width="100%" height="100%" />
+                <text x="72" y="40">SK8SKL</text>
+                </mask>
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" />
+            </svg>
+        </header>
+
+        <!-- <div class="content-section">
+            <form method="POST" action="">
+                {{ rrForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Reset Your Password</legend>
+                    <div class="form-group"></div>
+                </fieldset>
+            </form>
+        </div> -->
+
+        <div class="form-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4 resetCol">
+                        <div class="panel panel-defaul">
+                        <div class="panel-body">
+                            <div class="text-center">
+                            <h3><i class="fa fa-lock fa-4x"></i></h3>
+                            <h2 class="text-center">Reset Password?</h2>
+                            <p>You can reset your password here.</p>
+                            <div class="panel-body">
+                
+                                <form method="POST" action="">
+                                {{ rpForm.hidden_tag() }}
+                                <div class="forms-group">
+                                    <div class="input-group">
+                                    {% if rpForm.password.errors%}
+                                        {{ rpForm.password(class="form-control is-invalid", placeholder="Password") }}
+                                        <div class="errorMsg">
+                                            {% for error in rpForm.password.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ rpForm.password(class="form-control", placeholder="Password") }}
+                                    {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="forms-group">
+                                    <div class="input-group">
+                                    {% if rpForm.confirmPassword.errors%}
+                                        {{ rpForm.confirmPassword(class="form-control is-invalid", placeholder="Password") }}
+                                        <div class="errorMsg">
+                                            {% for error in rpForm.confirmPassword.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ rpForm.confirmPassword(class="form-control", placeholder="Password") }}
+                                    {% endif %}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                {{ rpForm.submit(class="btn btn-lg btn-block forms_buttons-action") }}
+                            </div>
+                                
+                            <!-- <input type="hidden" class="hide" name="token" id="token" value="">  -->
+                            </form>
+                
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+    </body>
+<html>

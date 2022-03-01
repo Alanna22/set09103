@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<script src="https://kit.fontawesome.com/df24a4616e.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+																	                                  
+		{% if title %}
+			<title>Sk8Skl - {{ title }}</title>
+		{% else %}
+			<title>Sk8Skl</title>
+		{% endif %}
+	</head>
+	<body class="homeBody">
+				<img src="" class="homeLogo">
+					<section class="user">		                    
+					<div class="user_options-container">
+						<div class="user_options-text">
+							<div class="user_options-unregistered">
+								<h2 class="user_unregistered-title">Don't have an account?</h2>
+								<p class="user_unregistered-text">Sign up and learn to skate with help from new friends all over the world!</p>
+								<button class="user_unregistered-signup" id="signup-button">Sign up</button>
+							</div>	
+							<div class="user_options-registered">
+								<h2 class="user_registered-title">Have an account?</h2>														  <p class="user_registered-text">Login and and learn new tricks today! <br> Happy skating!</p>
+								<button class="user_registered-login" id="login-button">Login</button>											  </div>
+						</div>
+						<div class="user_options-forms" id="user_options-forms">
+							{% with messages = get_flashed_messages(with_categories=true) %}
+								{% if messages %}
+									{% for category, message in messages %}
+										<div class="alert alert-{{ category }}">
+											{{ message }}
+										</div>
+									{% endfor%}
+								{% endif%}
+							{% endwith %}
+							<div class="user_forms-login">
+								
+								<h2 class="forms_title">Sk8Skl Login</h2>
+								
+								<form class="forms_form" method="POST" action="">
+									{{ loginForm.hidden_tag() }}	
+									<fieldset class="forms_fieldset">								
+										<div class="forms_field">
+											{% if loginForm.email.errors%}
+												{{ loginForm.email(class="forms_field-input is-invalid", placeholder="Email") }}
+												<div class="errorMsg">
+													{% for error in loginForm.email.errors %}
+														<span>{{ error }}</span>
+													{% endfor %}
+												</div>
+											{% else %}
+												{{ loginForm.email(class="forms_field-input", placeholder="Email") }}
+											{% endif %}
+											
+										</div>
+										<div class="forms_field">
+											{% if loginForm.password.errors%}
+											{{ loginForm.password(class="forms_field-input is-invalid", placeholder="Password") }}
+											<div class="errorMsg">
+												{% for error in loginForm.password.errors %}
+													<span>{{ error }}</span>
+												{% endfor %}
+											</div>
+											{% else %}
+												{{ loginForm.password(class="forms_field-input", placeholder="Password") }}
+											{% endif %}
+										</div>
+										<div class="form-check">
+											{{ loginForm.remember(class="form-check-input") }}
+											{{ loginForm.remember.label(class="form-check-label") }}
+
+										</div>
+									</fieldset>
+									<div class="forms_buttons">
+										<a href="reset_password" class="linkForgot">Forgot password?</a>
+										{{ loginForm.submitTwo(class="forms_buttons-action") }}
+										
+									</div>
+								</form>
+							</div>
+							<div class="user_forms-signup">
+								<h2 class="forms_title" style="margin-bottom: 10px; margin-top: -40px;">Sk8Skl Sign Up</h2>
+								<form class="forms_form" method="POST" action="">
+									{{ regForm.hidden_tag() }}
+									<fieldset class="forms_fieldset">
+
+										<div class="forms_field">
+											{% if regForm.firstName.errors %}
+												{{ regForm.firstName(class="forms_field-input is-invalid", placeholder="First Name") }}
+												<div class="errorMsg">
+													{% for error in regForm.firstName.errors %}
+														<span>{{ error }}</span>
+													{% endfor %}
+												</div>
+											{% else %}
+												{{ regForm.firstName(class="forms_field-input", placeholder="First Name") }}
+											{% endif %}
+										</div>
+
+										<div class="forms_field">
+											{% if regForm.lastName.errors %}
+												{{ regForm.lastName(class="forms_field-input is-invalid", placeholder="Last Name") }}
+												<div class="errorMsg">
+													{% for error in regForm.lastName.errors %}
+														<span>{{ error }}</span>
+													{% endfor %}
+												</div>
+											{% else %}
+												{{ regForm.lastName(class="forms_field-input", placeholder="Last Name") }}
+											{% endif %}
+											
+										</div>
+
+										<div class="forms_field">
+											{% if regForm.email.errors%}
+												{{ regForm.email(class="forms_field-input is-invalid", placeholder="Email") }}
+												<div class="errorMsg">
+													{% for error in regForm.email.errors %}
+														<span>{{ error }}</span>
+													{% endfor %}
+												</div>
+											{% else %}
+												{{ regForm.email(class="forms_field-input", placeholder="Email") }}
+											{% endif %}
+										</div>
+
+										<div class="forms_field">
+											{% if regForm.password.errors%}
+												{{ regForm.password(class="forms_field-input is-invalid", placeholder="Password") }}
+												<div class="errorMsg">
+													{% for error in regForm.password.errors %}
+														<span>{{ error }}</span>
+													{% endfor %}
+												</div>
+											{% else %}
+												{{ regForm.password(class="forms_field-input", placeholder="Password") }}
+											{% endif %}
+											
+										</div>
+
+										<div class="forms_field">
+											
+											{% if regForm.age.errors%}
+												{{ regForm.age(class="forms_field-input is-invalid", placeholder="Age") }}
+												<div class="errorMsg">
+													{% for error in regForm.age.errors %}
+														<span>{{ error }}</span>
+													{% endfor %}
+												</div>
+											{% else %}
+												{{ regForm.age(class="forms_field-input", placeholder="Age") }}
+											{% endif %}
+										</div>
+
+									</fieldset>
+									<div class="forms_buttons">
+										
+										{{ regForm.submitOne(class="forms_buttons-action") }}
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					</section>
+			</div>
+
+	
+
+
+	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	
+	    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	
+	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	
+	    <script>
+	
+		    /* Set the width of the side navigation to 250px */
+		
+		    function openNav() {
+		
+			    document.getElementById("mySidenav").style.width = "300px";
+			
+		    }
+
+                    /* Set the width of the side navigation to 0 */
+                    function closeNav() {       
+			    
+			    document.getElementById("mySidenav").style.width = "0";
+		
+
+		    }
+
+
+                   /* Variables*/
+                        const signupButton = document.getElementById("signup-button"),
+	                        loginButton = document.getElementById("login-button"),
+	                        userForms = document.getElementById("user_options-forms");
+
+                        /* Add event listener to the "Sign Up" button*/
+                        signupButton.addEventListener(
+				                       
+				"click",
+				     
+				() => {
+				
+					userForms.classList.remove("bounceRight");
+					
+					userForms.classList.add("bounceLeft");
+					
+				},
+				
+				false
+				
+			);
+
+                       /*Add event listener to the "Login" button*/
+                        loginButton.addEventListener(
+				                        
+				"click",
+				
+				() => {
+				
+					userForms.classList.remove("bounceLeft");
+					
+					userForms.classList.add("bounceRight");
+					
+				},
+				
+				false
+				
+			);
+
+           
+	    </script>
+
+	     
+	</body>
+	
+	<html>
+
+
+
